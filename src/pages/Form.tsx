@@ -11,18 +11,11 @@ import { DeleteOutlined, SaveFilled, UploadOutlined } from '@ant-design/icons';
 import { BooksContext } from '../context/file/BooksContext';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { BookFile,  } from '../interfaces/File';
 
 const { TextArea } = Input;
 
-export interface BookFile {
-  id?: string;
-  title:string;
-  author:string;
-  description:string;
-  fecha_pub: any;
-  image: string;
-  likes?: number;
-}
+
 
 const buttonItemLayout ={
       wrapperCol: { span: 14, offset: 5 },
@@ -35,6 +28,8 @@ export const FormPage = () => {
   const [image, setImage] = useState('');
   let navigate = useNavigate()
 
+  console.log(activeFile);
+  
   let initialForm = {
     title: '',
     author: '',
@@ -45,7 +40,14 @@ export const FormPage = () => {
 
   const handleFinish = async(values:BookFile) => {
     values.fecha_pub = values.fecha_pub.format('YYYY-MM-DD')
+    
+    if( image === ""){
+      setImage( activeFile?.image! )
+    }
     values.image = image;
+
+    console.log();
+    
 
     let save;
     if(activeFile){
@@ -165,7 +167,7 @@ export const FormPage = () => {
         <TextArea 
           rows={4} 
           showCount 
-          maxLength={100}
+          maxLength={200}
     
           name='description'
         />

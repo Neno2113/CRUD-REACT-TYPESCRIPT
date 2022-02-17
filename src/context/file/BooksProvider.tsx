@@ -4,7 +4,7 @@ import { Props } from "../../interfaces/props";
 import { BooksContext } from "./BooksContext";
 import { bookReducer, BookState } from "./booksReducer";
 import Swal from "sweetalert2";
-import { BookFile } from "../../pages/Form";
+import { BookFile } from "../../interfaces/File";
 
 
 const InitialState: BookState = {
@@ -116,6 +116,35 @@ export const BooksProvider = ({ children }: Props ) => {
 
     }
 
+    const doAddLike = async( ficha:string ) => {
+        const resp = await fetchWithToken('like/add', {ficha}, 'POST');
+        const body = await resp.json();
+        
+        if( body.ok ){
+            loadFiles();
+            
+            return true;
+        } else {
+            Swal.fire('Like Error', 'Usted ya voto', 'error');
+            return false;
+        }
+    }
+
+    const doDeleteLike = async( ficha:string ) => {
+        const resp = await fetchWithToken(`like/remove/${ficha}`, {}, 'POST');
+        const body = await resp.json();
+        
+        if( body.ok ){
+            loadFiles();
+            
+            return true;
+        } else {
+            Swal.fire('Like Error', 'Aun no ha votado', 'error');
+            return false;
+        }
+    }
+
+
 
     return (
         < BooksContext.Provider value={{
@@ -130,7 +159,9 @@ export const BooksProvider = ({ children }: Props ) => {
             pageChange,
             doSelectFle,
             doClearSelectedFile,
-            doDeleteFile
+            doDeleteFile,
+            doAddLike,
+            doDeleteLike
         }}>
             { children }
 

@@ -5,14 +5,10 @@ import {
 } from 'antd';
 import { EyeTwoTone, EyeInvisibleOutlined, UserOutlined  } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/auth/authContext';
+import { NewUser } from '../../context/auth/AuthProvider';
 
-
-export interface BookFile {
-  title:string;
-  author:string;
-  description:string;
-  fecha_pub: any
-}
 
 const buttonItemLayout ={
       wrapperCol: { span: 14, offset: 5 },
@@ -21,10 +17,12 @@ const buttonItemLayout ={
 
 export const RegisterPage = () => {
 
+  const { doRegister } = useContext( AuthContext );
 
-  const handleFinish = (values:BookFile) => {
-    console.log(values);
-        
+
+  const handleFinish = (values:NewUser) => {
+    // console.log(values);
+    doRegister( values )
     
   }
 

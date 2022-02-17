@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { UserLogin } from "./AuthProvider";
+import { NewUser, UserLogin } from "./AuthProvider";
 import { AuthAction, UserProps } from "./authReducer";
 
 interface AuthContextProps {
@@ -10,6 +10,7 @@ interface AuthContextProps {
     authDispatch: React.Dispatch<AuthAction>
     loading: () => void
     doLogin: (data: UserLogin) => void
+    doRegister: (data: NewUser ) => void
     logout: () => void
 }
 

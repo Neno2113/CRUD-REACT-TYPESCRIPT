@@ -1,7 +1,8 @@
 import { createContext } from "react";
-import { BookFile } from "../../pages/Form";
+import { BookFile } from "../../interfaces/File";
+import { Like } from "../../interfaces/like";
 import { File } from "./BooksProvider";
-import { BookAction, Like } from "./booksReducer";
+import { BookAction,  } from "./booksReducer";
 
 
 interface BooksContextProps {
@@ -11,7 +12,7 @@ interface BooksContextProps {
     filesTotal?: number;
     activeFile?: BookFile;
 
-
+    //methods
     fileDispatch: React.Dispatch<BookAction>;
     doFileSave: ( data:File ) => Promise<boolean>;
     doUpdateFile: ( id:string, data:File ) => Promise<boolean>;
@@ -20,7 +21,9 @@ interface BooksContextProps {
     loadLikes:  () => void;
     pageChange:  ( page:number ) => void;
     doSelectFle: ( file:BookFile ) => void;
-    doClearSelectedFile: () => void
+    doClearSelectedFile: () => void;
+    doAddLike: ( ficha:string ) => Promise<boolean>;
+    doDeleteLike: ( ficha:string ) => Promise<boolean>;
 }
 
 

@@ -16,6 +16,13 @@ export interface UserLogin {
     email:string;
     password:string
 }
+export interface NewUser {
+    name:string;
+    surname:string;
+    email:string;
+    password:string
+}
+
 
 
 export const AuthProvider = ({ children }:Props) => {
@@ -55,6 +62,24 @@ export const AuthProvider = ({ children }:Props) => {
         }
     }
 
+    const doRegister = async( data:UserLogin ) => {
+    
+        const resp = await fetchWithoutToken('auth/register', data, 'POST')
+        const body = await resp.json();
+    
+        if(body.ok){
+            localStorage.setItem('token', body.token );
+            localStorage.setItem('token-init-date', new Date().getTime().toString() );
+            
+            const { uid, name } = body;
+            authDispatch({ type: 'login', payload: {uid, name} });
+         
+    
+        } else {
+            Swal.fire('Authentication Error', body.msg, 'error')
+        }
+    }
+
 
     const logout = () => {
 
@@ -70,6 +95,7 @@ export const AuthProvider = ({ children }:Props) => {
             authDispatch,
             loading,
             doLogin,
+            doRegister,
             logout
         }}>
             { children }

@@ -20,3 +20,14 @@ export interface User {
     name:    string;
     surname: string;
 }
+
+export interface BookFile {
+    id?: string;
+    title:string;
+    author:string;
+    description:string;
+    fecha_pub: any;
+    image: string;
+    likes?: number;
+    user?: User;
+  }

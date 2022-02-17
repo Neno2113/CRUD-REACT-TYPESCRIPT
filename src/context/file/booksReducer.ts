@@ -1,4 +1,5 @@
-import { BookFile } from "../../pages/Form";
+import { BookFile } from "../../interfaces/File";
+import { Like } from "../../interfaces/like";
 
 export interface BookState{
     bookhistory?:BookFile ;
@@ -8,10 +9,10 @@ export interface BookState{
     activeFile?:BookFile
 }
 
-export interface Like {
-    id: string;
-    count: number;
-}
+// export interface LikeResponse {
+//     id: string;
+//     count: number;
+// }
 
 export type BookAction = 
 | { type: 'setBookHistory', payload:BookFile }
